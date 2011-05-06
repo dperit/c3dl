@@ -313,42 +313,6 @@ c3dl.FRAGMENT_SHADER = "x-fragment";
 
 
 
-
-
-// 0x0001 is the value assigned to glCanvas3D.LINES. Similarly,
-// 0x0004 is the value assigned to glCanvas3D.TRIANGLES.  We have to
-// use the numerical values here since we do not yet have a context.
-// Within the renderer is a variable which hold one of these values.
-// When drawArrays() is called, it will be given this value, thus filled
-// trianges or lines will be rendered.
-// This was done to avoid having:
-// if(fillMode == c3dl.WIRE_FRAME)
-//    drawArrays(glCanvas3D.LINES, ...);
-//  else
-//    drawArrays(glCanvas3D.TRIANGLES,...);
-//
-// instead of the above code, we only need one line of code.
-/**
- Pass this to renderer's setFillMode() if you want models to be
- drawn with lines. Note that using this may result in rendering of
- extra lines.  This should mostly used for debugging scripts such as
- when drawing bounding volumes.
- @constant
- @see c3dl.Renderer#setFillMode
- */
-c3dl.WIRE_FRAME = 0x0001;
-
-/**
- Pass this to a renderer's setFillMode() if you want models to be
- drawn 'filled in'. Renderers will use fill mode by default.
- 
- @constant
- @see c3dl.Renderer#setFillMode
- */
-c3dl.FILL = 0x0004;
-
-
-
 //////////////////////// DEBUG  ////////////////////////////////
 /**
  This is used internally in c3DL by the debug class.

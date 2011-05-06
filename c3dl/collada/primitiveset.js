@@ -30,7 +30,7 @@ c3dl.PrimitiveSet = function ()
   this.type = null;
   this.lineList = null;
   this.boundingVolume = null;
-  this.fillType = null;
+  this.fillType = "TRIANGLES";
   this.buffers =
   {
   };

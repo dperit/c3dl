@@ -302,3 +302,9 @@ c3dl.SceneNode.prototype.center = function (realposition) {
   this.addChild(temp);
   temp.setTransform(c3dl.makePoseMatrix([1, 0, 0], [0, 1, 0], [0, 0, 1], [-realposition[0], -realposition[1], -realposition[2]]));
 }
+
+c3dl.SceneNode.prototype.setFillType = function (type) {
+  for(var i = 0; i < this.children.length;i++){
+    this.children[i].setFillType(type);
+  }
+}

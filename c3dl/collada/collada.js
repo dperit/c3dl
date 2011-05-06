@@ -820,3 +820,6 @@ c3dl.Collada.prototype.centerObject = function () {
   c3dl.popMatrix();
   this.setDirty(true);
 }
+c3dl.Collada.prototype.setFillType = function (type) {
+  this.sceneGraph.setFillType(type);
+}

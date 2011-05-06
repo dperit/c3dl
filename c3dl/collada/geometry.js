@@ -228,6 +228,15 @@ c3dl.Geometry = function () {
       this.primitiveSets[i].updateTextureByName(oldTexturePath,newTexturePath);
     }
   }
+  
+  this.setFillType = function (type){
+    for (var i = 0, len = this.primitiveSets.length; i < len; i++) {
+      if (this.getPrimitiveSets()[i].getType() !== "lines") {
+        this.primitiveSets[i].fillType = type;
+      }
+    }
+  }
+
 
   /**
    @private

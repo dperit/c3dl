@@ -121,20 +121,9 @@ c3dl.std_callback = function (renderingObj, scene)
 
     // VERTICES
     renderer.setVertexAttribArray(progObjID, "Vertex", 3, currColl.getVBOVertices(), scene, "std");
-    if (renderer.getFillMode() === c3dl.FILL) {
-      if (currColl.fillType === "TRIANGLE_STRIP") {
-        glCanvas3D.drawArrays(glCanvas3D.TRIANGLE_STRIP, 0, currColl.getVertices().length / 3);
-      }
-      else if (currColl.fillType === "TRIANGLE_FAN") {
-        glCanvas3D.drawArrays(glCanvas3D.TRIANGLE_FAN, 0, currColl.getVertices().length / 3);
-      }
-      else {
-        glCanvas3D.drawArrays(glCanvas3D.TRIANGLES, 0, currColl.getVertices().length / 3);
-      }
-    }
-    else {
-      glCanvas3D.drawArrays(c3dl.WIRE_FRAME, 0, currColl.getVertices().length / 3);
-    }
+    
+    glCanvas3D.drawArrays(glCanvas3D[currColl.fillType], 0, currColl.getVertices().length / 3);
+    
     glCanvas3D.enable(glCanvas3D.POLYGON_OFFSET_FILL);
   }
 }
