@@ -123,6 +123,6 @@ c3dl.greyscale_callback = function (renderingObj, scene)
 
     // Vertices
     renderer.setVertexAttribArray(progObjID, "Vertex", 3, currColl.getVBOVertices(), scene, "greyscale"+coll);
-    gl.drawArrays(renderer.getFillMode(), 0, currColl.getVertices().length / 3);
+    gl.drawArrays(gl[currColl.fillType], 0, currColl.getVertices().length / 3);
   }
 }

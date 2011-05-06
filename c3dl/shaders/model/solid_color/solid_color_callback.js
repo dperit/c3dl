@@ -59,6 +59,6 @@ c3dl.solid_color_callback = function (renderingObj, scene)
 
     // VERTICES
     renderer.setVertexAttribArray(progObjID, "Vertex", 3, currColl.getVBOVertices(), scene, "solidcolor"+coll);
-    glCanvas3D.drawArrays(renderer.getFillMode(), 0, currColl.getVertices().length / 3);
+    glCanvas3D.drawArrays(gl[currColl.fillType], 0, currColl.getVertices().length / 3);
   }
 }

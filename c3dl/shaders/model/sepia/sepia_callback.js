@@ -115,6 +115,6 @@ c3dl.sepia_callback = function (renderingObj, scene)
 
     // Vertices
     renderer.setVertexAttribArray(progObjID, "Vertex", 3, currColl.getVBOVertices(), scene, "sepia"+coll);
-    gl.drawArrays(renderer.getFillMode(), 0, currColl.getVertices().length / 3);
+    gl.drawArrays(gl[currColl.fillType], 0, currColl.getVertices().length / 3);
   }
 }

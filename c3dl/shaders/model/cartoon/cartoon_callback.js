@@ -196,6 +196,6 @@ c3dl.cartoon_callback = function (renderingObj, scene)
     }
     // VERTICES
     renderer.setVertexAttribArray(programObjID, "Vertex", 3, currColl.getVBOVertices(), scene, "cartoon"+coll);
-    gl.drawArrays(renderer.getFillMode(), 0, currColl.getVertices().length / 3);
+    gl.drawArrays(gl[currColl.fillType], 0, currColl.getVertices().length / 3);
   }
 }

@@ -148,6 +148,6 @@ c3dl.gooch_callback = function (renderingObj, scene)
     renderer.setUniformf(programObjID, "coolColor", effect.getParameter("coolColor"), scene, "gooch"+coll);
     renderer.setUniformf(programObjID, "surfaceColor", effect.getParameter("surfaceColor"), scene, "gooch"+coll);
     renderer.setVertexAttribArray(programObjID, "Vertex", 3, currColl.getVBOVertices(), scene, "gooch"+coll);
-    gl.drawArrays(renderer.getFillMode(), 0, currColl.getVertices().length / 3);
+    gl.drawArrays(gl[currColl.fillType], 0, currColl.getVertices().length / 3);
   }
 }
