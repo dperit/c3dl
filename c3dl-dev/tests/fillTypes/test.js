@@ -4,35 +4,23 @@ const ZOOM_SENSITIVITY = 3;
 var isDragging = false;
 var rotationStartCoords = [0,0];
 
-var effectCounter = 0;
-var effects, scene;
+var scene;
 var light, light2, light3;
 
 c3dl.addModel('models/teapot.dae');
-c3dl.addMainCallBack(effect_test1, 'effect_test_point');
-c3dl.addMainCallBack(effect_test2, 'effect_test_wireframe');
-c3dl.addMainCallBack(effect_test3, 'effect_test_triangle_strip');
-c3dl.addMainCallBack(effect_test4, 'effect_test_triangle_fan');
+c3dl.addModel('models/fly_plane_tri.dae');
+c3dl.addMainCallBack(filltype_test, 'filltype_test');
 
-var simpleIEffect, simpleIEffect2;
-var celIEffect;
-var goochEffect, goochEffect2;
-
-// outlines for gooch and cel effects
-var outlineOn = true;
-
-//
-function effect_test1(canvasName)
-{
-  var orbitCam = new c3dl.OrbitCamera();
+var orbitCam = new c3dl.OrbitCamera();
 orbitCam.setFarthestDistance(250);
 orbitCam.setClosestDistance(30);
 orbitCam.setDistance(280);
 orbitCam.setPosition([0,0,130]);
 
-  
-  var fillType = "POINT";
-  var teapots = [];
+var teapots = [];
+
+function filltype_test(canvasName)
+{
   scene = new c3dl.Scene();		
   scene.setCanvasTag(canvasName);
   var renderer = new c3dl.WebGL();
@@ -42,503 +30,179 @@ orbitCam.setPosition([0,0,130]);
   scene.setAmbientLight([0,0,0]);  
 
   // LIGHTS
-  var light = new c3dl.PositionalLight();
+  light = new c3dl.PositionalLight();
   light.setPosition([0,200,150]);
   light.setDiffuse([1,1,1]);
   light.setName('light1');
+  light.setOn(false);
   scene.addLight(light);
 
-  var light2 = new c3dl.DirectionalLight();
+  light2 = new c3dl.DirectionalLight();
   light2.setDirection([0,0,-1]);
   light2.setSpecular([1,0,0]);
+  light2.setOn(false);
   scene.addLight(light2);
 
   /////////////////////////////////////////////////	
 
-  // GREYSCALE
-  greyscaleEffect = new c3dl.Effect();
-  greyscaleEffect.init(c3dl.effects.GREYSCALE);
 
   teapots.push(new c3dl.Collada());
   teapots[0].init("models/teapot.dae");
   teapots[0].setTexture("models/images/red.jpg");
   teapots[0].translate([0,40,0]);
-  teapots[0].setEffect(greyscaleEffect);
-  teapots[0].setFillType(fillType);
+  teapots[0].setFillType("POINT");
   scene.addObjectToScene(teapots[0]);
-
-  // SEPIA
-  var sepiaEffect = new c3dl.Effect();
-  sepiaEffect.init(c3dl.effects.SEPIA);
-  sepiaEffect.setParameter("color", [1.2, 1.0, 0.8]);
+  orbitCam.setOrbitPoint(teapots[0].getPosition());
 
   teapots[1] = new c3dl.Collada();
   teapots[1].init("models/teapot.dae");
   teapots[1].setTexture("models/images/red.jpg");
   teapots[1].translate([30,40,0]);
-  teapots[1].setEffect(sepiaEffect);
-  teapots[1].setFillType(fillType);
+  teapots[1].setFillType("ONE");
   scene.addObjectToScene(teapots[1]);
-
-  // CARTOON
-  celIEffect = new c3dl.Effect();
-  celIEffect.init(c3dl.effects.CARTOON);
-  celIEffect.setParameter("qMap", "models/images/shades.jpg");
 
   teapots.push(new c3dl.Collada());
   teapots[2].init("models/teapot.dae");
   teapots[2].setTexture("models/images/texture.jpg");
   teapots[2].translate([0,20,0]);
-  teapots[2].setEffect(celIEffect);
-  teapots[2].setFillType(fillType);
+  teapots[2].setFillType("TRIANGLE_STRIP");
   scene.addObjectToScene(teapots[2]);
-
-  // SOLID COLOR
-  solidColorEffect = new c3dl.Effect();
-  solidColorEffect.init(c3dl.effects.SOLID_COLOR);
-  solidColorEffect.setParameter("color", [0.0, 1.0, 0.0]);	
 
   teapots.push(new c3dl.Collada());
   teapots[3].init("models/teapot.dae");
   teapots[3].translate([30,20,0]);
-  teapots[3].setEffect(solidColorEffect);
-  teapots[3].setFillType(fillType);
+  teapots[3].setFillType("TRIANGLE_FAN");
   scene.addObjectToScene(teapots[3]);
-  orbitCam.setOrbitPoint(teapots[3].getPosition());
+  
+  var plane = new c3dl.Collada();
+  plane.init("models/fly_plane_tri.dae");
+  plane.scale([2,2,2]);
 
-  // STANDARD
-  teapots.push(new c3dl.Collada());
-  teapots[4].init("models/teapot.dae");
-  teapots[4].setTexture("modes/images/red.jpg");
-  teapots[4].setVisible(false);
-  teapots[4].setFillType(fillType);
-  scene.addObjectToScene(teapots[4]);
+  var propNode = plane.getSceneGraph().findNode('prop');
+  var planeNode = plane.getSceneGraph().findNode('plane');
+  scene.addObjectToScene(plane);
 
-  // GOOCH
-  goochEffect = new c3dl.Effect();
-  goochEffect.init(c3dl.effects.GOOCH);
-
-  teapots.push(new c3dl.Collada());
-  teapots[5].init("models/teapot.dae");
-  teapots[5].translate([30,0,0]);
-  teapots[5].setEffect(goochEffect);
-  teapots[5].setFillType(fillType);
-  scene.addObjectToScene(teapots[5]);
-
-  // VARYING
-  teapots.push(new c3dl.Collada());
-  teapots[6].init("models/teapot.dae");
-  teapots[6].setTexture("models/images/red.jpg");
-  teapots[6].translate([0,-20,0]);
-  teapots[6].setEffect(c3dl.effects.STANDARD);
-  teapots[6].setFillType(fillType);
-  scene.addObjectToScene(teapots[6]);
-
-  // GOOCH
-  goochEffect2 = new c3dl.Effect();
-  goochEffect2.init(c3dl.effects.GOOCH);
-  goochEffect2.setParameter("warmColor", [1,1,1]);
-  goochEffect2.setParameter("coolColor", [0,0,0]);
-
-  teapots.push(new c3dl.Collada());
-  teapots[7].init("models/teapot.dae");
-  teapots[7].translate([30,-20,0]);
-  teapots[7].setEffect(goochEffect2);
-  teapots[7].setFillType(fillType);
-  scene.addObjectToScene(teapots[7]);
+  propNode.setAngularVel([0,0,0.002]);
+  planeNode.setAngularVel([0,0.001,0.0]);
 
   scene.setCamera(orbitCam);
   scene.startScene();
+  scene.setUpdateCallback(update);
+  scene.setMouseCallback(mouseUp,mouseDown, mouseMove, mouseScroll);
+  scene.setKeyboardCallback(onKeyUp, onKeyDown);
 
-  effects = [c3dl.effects.STANDARD,celIEffect,greyscaleEffect,sepiaEffect, goochEffect];
+
+  effects = [c3dl.effects.STANDARD];
 }
-function effect_test4(canvasName)
+
+function changeKeyState(event, keyState)
 {
-  var orbitCam = new c3dl.OrbitCamera();
-orbitCam.setFarthestDistance(250);
-orbitCam.setClosestDistance(30);
-orbitCam.setDistance(280);
-orbitCam.setPosition([0,0,130]);
-
-  
-  var fillType = "TRIANGLE_FAN";
-  var teapots = [];
-  scene = new c3dl.Scene();		
-  scene.setCanvasTag(canvasName);
-  var renderer = new c3dl.WebGL();
-
-  scene.setRenderer(renderer);
-  scene.init();
-  scene.setAmbientLight([0,0,0]);  
-
-  // LIGHTS
-  var light = new c3dl.PositionalLight();
-  light.setPosition([0,200,150]);
-  light.setDiffuse([1,1,1]);
-  light.setName('light1');
-  scene.addLight(light);
-
-  var light2 = new c3dl.DirectionalLight();
-  light2.setDirection([0,0,-1]);
-  light2.setSpecular([1,0,0]);
-  scene.addLight(light2);
-
-  /////////////////////////////////////////////////	
-
-  // GREYSCALE
-  greyscaleEffect = new c3dl.Effect();
-  greyscaleEffect.init(c3dl.effects.GREYSCALE);
-
-  teapots.push(new c3dl.Collada());
-  teapots[0].init("models/teapot.dae");
-  teapots[0].setTexture("models/images/red.jpg");
-  teapots[0].translate([0,40,0]);
-  teapots[0].setEffect(greyscaleEffect);
-  teapots[0].setFillType(fillType);
-  scene.addObjectToScene(teapots[0]);
-
-  // SEPIA
-  var sepiaEffect = new c3dl.Effect();
-  sepiaEffect.init(c3dl.effects.SEPIA);
-  sepiaEffect.setParameter("color", [1.2, 1.0, 0.8]);
-
-  teapots[1] = new c3dl.Collada();
-  teapots[1].init("models/teapot.dae");
-  teapots[1].setTexture("models/images/red.jpg");
-  teapots[1].translate([30,40,0]);
-  teapots[1].setEffect(sepiaEffect);
-  teapots[1].setFillType(fillType);
-  scene.addObjectToScene(teapots[1]);
-
-  // CARTOON
-  celIEffect = new c3dl.Effect();
-  celIEffect.init(c3dl.effects.CARTOON);
-  celIEffect.setParameter("qMap", "models/images/shades.jpg");
-
-  teapots.push(new c3dl.Collada());
-  teapots[2].init("models/teapot.dae");
-  teapots[2].setTexture("models/images/texture.jpg");
-  teapots[2].translate([0,20,0]);
-  teapots[2].setEffect(celIEffect);
-  teapots[2].setFillType(fillType);
-  scene.addObjectToScene(teapots[2]);
-
-  // SOLID COLOR
-  solidColorEffect = new c3dl.Effect();
-  solidColorEffect.init(c3dl.effects.SOLID_COLOR);
-  solidColorEffect.setParameter("color", [0.0, 1.0, 0.0]);	
-
-  teapots.push(new c3dl.Collada());
-  teapots[3].init("models/teapot.dae");
-  teapots[3].translate([30,20,0]);
-  teapots[3].setEffect(solidColorEffect);
-  teapots[3].setFillType(fillType);
-  scene.addObjectToScene(teapots[3]);
-  orbitCam.setOrbitPoint(teapots[3].getPosition());
-
-  // STANDARD
-  teapots.push(new c3dl.Collada());
-  teapots[4].init("models/teapot.dae");
-  teapots[4].setTexture("modes/images/red.jpg");
-  teapots[4].setVisible(false);
-  teapots[4].setFillType(fillType);
-  scene.addObjectToScene(teapots[4]);
-
-  // GOOCH
-  goochEffect = new c3dl.Effect();
-  goochEffect.init(c3dl.effects.GOOCH);
-
-  teapots.push(new c3dl.Collada());
-  teapots[5].init("models/teapot.dae");
-  teapots[5].translate([30,0,0]);
-  teapots[5].setEffect(goochEffect);
-  teapots[5].setFillType(fillType);
-  scene.addObjectToScene(teapots[5]);
-
-  // VARYING
-  teapots.push(new c3dl.Collada());
-  teapots[6].init("models/teapot.dae");
-  teapots[6].setTexture("models/images/red.jpg");
-  teapots[6].translate([0,-20,0]);
-  teapots[6].setEffect(c3dl.effects.STANDARD);
-  teapots[6].setFillType(fillType);
-  scene.addObjectToScene(teapots[6]);
-
-  // GOOCH
-  goochEffect2 = new c3dl.Effect();
-  goochEffect2.init(c3dl.effects.GOOCH);
-  goochEffect2.setParameter("warmColor", [1,1,1]);
-  goochEffect2.setParameter("coolColor", [0,0,0]);
-
-  teapots.push(new c3dl.Collada());
-  teapots[7].init("models/teapot.dae");
-  teapots[7].translate([30,-20,0]);
-  teapots[7].setEffect(goochEffect2);
-  teapots[7].setFillType(fillType);
-  scene.addObjectToScene(teapots[7]);
-
-  scene.setCamera(orbitCam);
-  scene.startScene();
-
-  effects = [c3dl.effects.STANDARD,celIEffect,greyscaleEffect,sepiaEffect, goochEffect];
+	switch( event.keyCode)
+	{
+		case KEY_ZOOM: keysPressed[ZOOM] = keyState;break;
+		case KEY_PITCH: keysPressed[PITCH] = keyState;break;
+		case KEY_YAW: keysPressed[YAW] = keyState;break; 
+	}
 }
-function effect_test3(canvasName)
-{
-  var orbitCam = new c3dl.OrbitCamera();
-orbitCam.setFarthestDistance(250);
-orbitCam.setClosestDistance(30);
-orbitCam.setDistance(280);
-orbitCam.setPosition([0,0,130]);
 
-  
-  var fillType = "TRIANGLE_STRIP";
-  var teapots = [];
-  scene = new c3dl.Scene();		
-  scene.setCanvasTag(canvasName);
-  var renderer = new c3dl.WebGL();
-
-  scene.setRenderer(renderer);
-  scene.init();
-  scene.setAmbientLight([0,0,0]);  
-
-  // LIGHTS
-  var light = new c3dl.PositionalLight();
-  light.setPosition([0,200,150]);
-  light.setDiffuse([1,1,1]);
-  light.setName('light1');
-  scene.addLight(light);
-
-  var light2 = new c3dl.DirectionalLight();
-  light2.setDirection([0,0,-1]);
-  light2.setSpecular([1,0,0]);
-  scene.addLight(light2);
-
-  /////////////////////////////////////////////////	
-
-  // GREYSCALE
-  greyscaleEffect = new c3dl.Effect();
-  greyscaleEffect.init(c3dl.effects.GREYSCALE);
-
-  teapots.push(new c3dl.Collada());
-  teapots[0].init("models/teapot.dae");
-  teapots[0].setTexture("models/images/red.jpg");
-  teapots[0].translate([0,40,0]);
-  teapots[0].setEffect(greyscaleEffect);
-  teapots[0].setFillType(fillType);
-  scene.addObjectToScene(teapots[0]);
-
-  // SEPIA
-  var sepiaEffect = new c3dl.Effect();
-  sepiaEffect.init(c3dl.effects.SEPIA);
-  sepiaEffect.setParameter("color", [1.2, 1.0, 0.8]);
-
-  teapots[1] = new c3dl.Collada();
-  teapots[1].init("models/teapot.dae");
-  teapots[1].setTexture("models/images/red.jpg");
-  teapots[1].translate([30,40,0]);
-  teapots[1].setEffect(sepiaEffect);
-  teapots[1].setFillType(fillType);
-  scene.addObjectToScene(teapots[1]);
-
-  // CARTOON
-  celIEffect = new c3dl.Effect();
-  celIEffect.init(c3dl.effects.CARTOON);
-  celIEffect.setParameter("qMap", "models/images/shades.jpg");
-
-  teapots.push(new c3dl.Collada());
-  teapots[2].init("models/teapot.dae");
-  teapots[2].setTexture("models/images/texture.jpg");
-  teapots[2].translate([0,20,0]);
-  teapots[2].setEffect(celIEffect);
-  teapots[2].setFillType(fillType);
-  scene.addObjectToScene(teapots[2]);
-
-  // SOLID COLOR
-  solidColorEffect = new c3dl.Effect();
-  solidColorEffect.init(c3dl.effects.SOLID_COLOR);
-  solidColorEffect.setParameter("color", [0.0, 1.0, 0.0]);	
-
-  teapots.push(new c3dl.Collada());
-  teapots[3].init("models/teapot.dae");
-  teapots[3].translate([30,20,0]);
-  teapots[3].setEffect(solidColorEffect);
-  teapots[3].setFillType(fillType);
-  scene.addObjectToScene(teapots[3]);
-  orbitCam.setOrbitPoint(teapots[3].getPosition());
-
-  // STANDARD
-  teapots.push(new c3dl.Collada());
-  teapots[4].init("models/teapot.dae");
-  teapots[4].setTexture("modes/images/red.jpg");
-  teapots[4].setVisible(false);
-  teapots[4].setFillType(fillType);
-  scene.addObjectToScene(teapots[4]);
-
-  // GOOCH
-  goochEffect = new c3dl.Effect();
-  goochEffect.init(c3dl.effects.GOOCH);
-
-  teapots.push(new c3dl.Collada());
-  teapots[5].init("models/teapot.dae");
-  teapots[5].translate([30,0,0]);
-  teapots[5].setEffect(goochEffect);
-  teapots[5].setFillType(fillType);
-  scene.addObjectToScene(teapots[5]);
-
-  // VARYING
-  teapots.push(new c3dl.Collada());
-  teapots[6].init("models/teapot.dae");
-  teapots[6].setTexture("models/images/red.jpg");
-  teapots[6].translate([0,-20,0]);
-  teapots[6].setEffect(c3dl.effects.STANDARD);
-  teapots[6].setFillType(fillType);
-  scene.addObjectToScene(teapots[6]);
-
-  // GOOCH
-  goochEffect2 = new c3dl.Effect();
-  goochEffect2.init(c3dl.effects.GOOCH);
-  goochEffect2.setParameter("warmColor", [1,1,1]);
-  goochEffect2.setParameter("coolColor", [0,0,0]);
-
-  teapots.push(new c3dl.Collada());
-  teapots[7].init("models/teapot.dae");
-  teapots[7].translate([30,-20,0]);
-  teapots[7].setEffect(goochEffect2);
-  teapots[7].setFillType(fillType);
-  scene.addObjectToScene(teapots[7]);
-
-  scene.setCamera(orbitCam);
-  scene.startScene();
-
-  effects = [c3dl.effects.STANDARD,celIEffect,greyscaleEffect,sepiaEffect, goochEffect];
+function update(event)
+{	
+  document.getElementById('fps').innerHTML = "FPS: " + Math.floor(scene.getFPS());
 }
-function effect_test2(canvasName)
+
+function onKeyUp(event)
 {
-  var orbitCam = new c3dl.OrbitCamera();
-orbitCam.setFarthestDistance(250);
-orbitCam.setClosestDistance(30);
-orbitCam.setDistance(280);
-orbitCam.setPosition([0,0,130]);
+	changeKeyState(event, false);
+}
 
-  
-  var fillType = "ONE";
-  var teapots = [];
-  scene = new c3dl.Scene();		
-  scene.setCanvasTag(canvasName);
-  var renderer = new c3dl.WebGL();
+function toggleLight(id)
+{
+  if(id == 1)
+  {
+    light.setOn(!light.isOn());
+  }
+  else if(id == 2)
+  {
+    light2.setOn(!light2.isOn());
+  }
+}
 
-  scene.setRenderer(renderer);
-  scene.init();
-  scene.setAmbientLight([0,0,0]);  
+function changeOrbit(id)
+{
+  orbitCam.setOrbitPoint(teapots[id-1].getPosition());
+}
 
-  // LIGHTS
-  var light = new c3dl.PositionalLight();
-  light.setPosition([0,200,150]);
-  light.setDiffuse([1,1,1]);
-  light.setName('light1');
-  scene.addLight(light);
+function onKeyDown(event)
+{
+	changeKeyState(event, true);
+	
+}
 
-  var light2 = new c3dl.DirectionalLight();
-  light2.setDirection([0,0,-1]);
-  light2.setSpecular([1,0,0]);
-  scene.addLight(light2);
+function mouseUp(event)
+{
+	// user released the LMB.
+	if(event.which == 1)
+	{
+		isDragging = false;
+	}
+}
 
-  /////////////////////////////////////////////////	
+function mouseScroll(event)
+{
+  var d = event.wheelDelta ? -event.wheelDelta/100: event.detail;
 
-  // GREYSCALE
-  greyscaleEffect = new c3dl.Effect();
-  greyscaleEffect.init(c3dl.effects.GREYSCALE);
+  // towards user
+  if(-d * ZOOM_SENSITIVITY < 0)
+  {
+    orbitCam.goFarther(-1 * -d * ZOOM_SENSITIVITY);
+  }
 
-  teapots.push(new c3dl.Collada());
-  teapots[0].init("models/teapot.dae");
-  teapots[0].setTexture("models/images/red.jpg");
-  teapots[0].translate([0,40,0]);
-  teapots[0].setEffect(greyscaleEffect);
-  teapots[0].setFillType(fillType);
-  scene.addObjectToScene(teapots[0]);
+  // towards screen
+  else
+  {
+    orbitCam.goCloser(-d * ZOOM_SENSITIVITY);
+  }
+}
 
-  // SEPIA
-  var sepiaEffect = new c3dl.Effect();
-  sepiaEffect.init(c3dl.effects.SEPIA);
-  sepiaEffect.setParameter("color", [1.2, 1.0, 0.8]);
+function mouseDown(evt)
+{
+	// user pressed the LMB.
+	if(evt.which == 1)
+	{
+		isDragging = true;
+		rotationStartCoords[0] = xevtpos(evt);
+		rotationStartCoords[1] = yevtpos(evt);
+	}
+}
 
-  teapots[1] = new c3dl.Collada();
-  teapots[1].init("models/teapot.dae");
-  teapots[1].setTexture("models/images/red.jpg");
-  teapots[1].translate([30,40,0]);
-  teapots[1].setEffect(sepiaEffect);
-  teapots[1].setFillType(fillType);
-  scene.addObjectToScene(teapots[1]);
+function mouseMove(evt)
+{
+  if(isDragging == true)
+  {
+    var x = xevtpos(evt);
+    var y = yevtpos(evt);
 
-  // CARTOON
-  celIEffect = new c3dl.Effect();
-  celIEffect.init(c3dl.effects.CARTOON);
-  celIEffect.setParameter("qMap", "models/images/shades.jpg");
+    // how much was the cursor moved compared to last time
+    // this function was called?
+    var deltaX = x - rotationStartCoords[0];
+    var deltaY = y - rotationStartCoords[1];
 
-  teapots.push(new c3dl.Collada());
-  teapots[2].init("models/teapot.dae");
-  teapots[2].setTexture("models/images/texture.jpg");
-  teapots[2].translate([0,20,0]);
-  teapots[2].setEffect(celIEffect);
-  teapots[2].setFillType(fillType);
-  scene.addObjectToScene(teapots[2]);
+    orbitCam.yaw(-deltaX * SENSITIVITY);
+    orbitCam.pitch(deltaY * SENSITIVITY);
 
-  // SOLID COLOR
-  solidColorEffect = new c3dl.Effect();
-  solidColorEffect.init(c3dl.effects.SOLID_COLOR);
-  solidColorEffect.setParameter("color", [0.0, 1.0, 0.0]);	
+    // now that the camera was updated, reset where the
+    // rotation will start for the next time this function is 
+    // called.
+    rotationStartCoords = [x,y];
+  }
+}
 
-  teapots.push(new c3dl.Collada());
-  teapots[3].init("models/teapot.dae");
-  teapots[3].translate([30,20,0]);
-  teapots[3].setEffect(solidColorEffect);
-  teapots[3].setFillType(fillType);
-  scene.addObjectToScene(teapots[3]);
-  orbitCam.setOrbitPoint(teapots[3].getPosition());
+function xevtpos(evt)
+{
+  return 2 * (evt.clientX / evt.target.width) - 1;
+}
 
-  // STANDARD
-  teapots.push(new c3dl.Collada());
-  teapots[4].init("models/teapot.dae");
-  teapots[4].setTexture("modes/images/red.jpg");
-  teapots[4].setVisible(false);
-  teapots[4].setFillType(fillType);
-  scene.addObjectToScene(teapots[4]);
-
-  // GOOCH
-  goochEffect = new c3dl.Effect();
-  goochEffect.init(c3dl.effects.GOOCH);
-
-  teapots.push(new c3dl.Collada());
-  teapots[5].init("models/teapot.dae");
-  teapots[5].translate([30,0,0]);
-  teapots[5].setEffect(goochEffect);
-  teapots[5].setFillType(fillType);
-  scene.addObjectToScene(teapots[5]);
-
-  // VARYING
-  teapots.push(new c3dl.Collada());
-  teapots[6].init("models/teapot.dae");
-  teapots[6].setTexture("models/images/red.jpg");
-  teapots[6].translate([0,-20,0]);
-  teapots[6].setEffect(c3dl.effects.STANDARD);
-  teapots[6].setFillType(fillType);
-  scene.addObjectToScene(teapots[6]);
-
-  // GOOCH
-  goochEffect2 = new c3dl.Effect();
-  goochEffect2.init(c3dl.effects.GOOCH);
-  goochEffect2.setParameter("warmColor", [1,1,1]);
-  goochEffect2.setParameter("coolColor", [0,0,0]);
-
-  teapots.push(new c3dl.Collada());
-  teapots[7].init("models/teapot.dae");
-  teapots[7].translate([30,-20,0]);
-  teapots[7].setEffect(goochEffect2);
-  teapots[7].setFillType(fillType);
-  scene.addObjectToScene(teapots[7]);
-
-  scene.setCamera(orbitCam);
-  scene.startScene();
-
-  effects = [c3dl.effects.STANDARD,celIEffect,greyscaleEffect,sepiaEffect, goochEffect];
+function yevtpos(evt)
+{
+  return 2 * (evt.clientY / evt.target.height) - 1;
 }

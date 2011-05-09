@@ -4,7 +4,7 @@
 -->
 <html>
   <head>
-    <title>C3DL Effect Tests + Fill Type</title>
+    <title>C3DL Fill Types Test</title>
     <script language="javascript" src="../../../c3dl/c3dapi.js"></script>
     <script language="javascript" src="test.js"></script>
     <link rel="stylesheet" type="text/css" href="../../style.css"/>
@@ -19,20 +19,53 @@
 
   <body>
 
-    <h1><a href="http://www.c3dl.org">C3DL</a> Effect Tests + Fill Type</h1>
+    <h1><a href="http://www.c3dl.org">C3DL</a>Fill Type Test</h1>
 
     <p>
-    This pages tests to make sure the C3DL effects code works correctly with each type of fill mode.<br />
-    The page creates 4 canvasses and loads several models and sets their <br />
-    effects and a different fill type for each canvas.<br />
+    This pages tests to make sure the C3DL fill modes work correctly.<br />
+    The page creates 4 models and gives each one a different fill type
     </p>
     
     <p>
+      <table>
+        <tr>
+          <td>
+            <canvas id="filltype_test" width="500" height="500"></canvas>
+          </td>
+        
+          <td valign="top">
+            <form>
 
-      <canvas id="effect_test_point" width="500" height="500"></canvas>
-      <canvas id="effect_test_wireframe" width="500" height="500"></canvas>
-      <canvas id="effect_test_triangle_strip" width="500" height="500"></canvas>
-      <canvas id="effect_test_triangle_fan" width="500" height="500"></canvas>
+              <u>Toggle Lights</u><br />
+              <input type="checkbox" name="light1" onclick="toggleLight(1);"/>Light1 &nbsp;&nbsp;&nbsp;
+              <input type="checkbox" name="light2" onclick="toggleLight(2);"/>Light2<br />
+              <br />
+
+              <u>Orbit Object</u><br />
+              <table border="0" style="margin:0px;">
+                <tr>
+                  <td style="border:0px;">
+                    <input type="radio" name="orbitObject" value="greyscale" checked="true" onclick="changeOrbit(1);" />Point<br />
+                    <input type="radio" name="orbitObject" value="cartoon" onclick="changeOrbit(2);"/>Wireframe<br />
+                    <input type="radio" name="orbitObject" value="cartoon" onclick="changeOrbit(3);"/>Triangle Strip<br />
+                    <input type="radio" name="orbitObject" value="standard" onclick="changeOrbit(4);"/>Triangle Fan<br />                  
+                  </td>
+                </tr>
+              </table>
+              <br />
+
+              <u>Mouse Controls</u><br />
+              Scroll wheel - Zoom in and out<br />
+              Click+Drag - Orbit object<br />
+              <br />
+
+              <span id='fps'>FPS: 0</span>
+              <br />
+
+            </form>
+          </td>
+        </tr>
+      </table>
     </p>
 
   </body>
