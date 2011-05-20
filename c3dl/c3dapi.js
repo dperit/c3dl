@@ -11,6 +11,8 @@
 
   <script type="application/javascript" src="../canvas3dapi/c3dapi.js"></script>		
 */
+
+
 var scripts = document.getElementsByTagName("script");
 var parts = scripts[scripts.length - 1].src.split("/");
 parts.pop();
@@ -27,10 +29,11 @@ basePath += "/";
 */
 c3dl_require = function (path)
 {
+  console.log(basePath, path);
   var s = window.document.createElement('script');
   s.type = 'text/javascript';
   s.onload = function(){
-      window.document.head.removeChild(s);
+      window.document.head.removeChild(this);
   };
   s.src = basePath + path;
   window.document.head.appendChild(s);

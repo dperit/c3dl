@@ -9,7 +9,7 @@ function test(canvasName, callbackvar){
   scn = new c3dl.Scene();
   callback = callbackvar;
   scn.setCanvasTag(canvasName);
-  renderer = new c3dl.WebGL();
+  var renderer = new c3dl.WebGL();
   renderer.createRenderer(this);
   scn.setRenderer(renderer);
   scn.init(canvasName);

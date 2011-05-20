@@ -394,7 +394,6 @@ var sundae = {};
         }
     }
     function getScript(src, callback){
-        window.setTimeout(function(){
             if(!isLoaded(src)){
                 var s = _w.document.createElement('script');
                 s.type = 'text/javascript';
@@ -406,7 +405,6 @@ var sundae = {};
                 s.src = src;
                 _w.document.head.appendChild(s);
             }
-        },3000);
     }
     function getPixels(aCanvas, isWebGL) {
         try {

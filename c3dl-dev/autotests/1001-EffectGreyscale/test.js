@@ -8,13 +8,12 @@ var effectCounter = 0;
 var effects, scene;
 var light, light2, light3;
 
-c3dl.addModel('../models/teapot.dae');
+c3dl.addModel('models/teapot.dae');
 c3dl.addMainCallBack(test, 'effect_test');
 
 //
 function test(canvasName, callback)
 {
-
   var orbitCam = new c3dl.OrbitCamera();
 orbitCam.setFarthestDistance(250);
 orbitCam.setClosestDistance(30);
@@ -30,11 +29,18 @@ var goochEffect, goochEffect2;
 // outlines for gooch and cel effects
 var outlineOn = true;
   
-  scene = new c3dl.Scene();		
-  scene.setCanvasTag(canvasName);
+  scene = new c3dl.Scene();
+  if (typeof(canvasName)=='string'){
+    scene.setCanvasTag(canvasName);
+  }else{
+    scene.setCanvasTag(canvasName.getAttribute('id'));
+  }
   var renderer = new c3dl.WebGL();
-
   scene.setRenderer(renderer);
+
+  
+
+  
   scene.init();
   scene.setAmbientLight([0,0,0]);  
 
@@ -64,7 +70,7 @@ var outlineOn = true;
   // CARTOON
   celIEffect = new c3dl.Effect();
   celIEffect.init(c3dl.effects.CARTOON);
-  celIEffect.setParameter("qMap", "../models/images/shades.jpg");
+  celIEffect.setParameter("qMap", "models/images/shades.jpg");
   // SOLID COLOR
   solidColorEffect = new c3dl.Effect();
   solidColorEffect.init(c3dl.effects.SOLID_COLOR);
@@ -79,8 +85,8 @@ var outlineOn = true;
   goochEffect2.setParameter("coolColor", [0,0,0]);
 
   teapots.push(new c3dl.Collada());
-  teapots[0].init("../models/teapot.dae");
-  teapots[0].setTexture("../models/images/red.jpg");
+  teapots[0].init("models/teapot.dae");
+  teapots[0].setTexture("models/images/red.jpg");
   teapots[0].setEffect(greyscaleEffect);
   scene.addObjectToScene(teapots[0]);
   orbitCam.setOrbitPoint(teapots[0].getPosition());
@@ -90,10 +96,7 @@ var outlineOn = true;
   scene.setUpdateCallback(update);
 
   effects = [c3dl.effects.STANDARD,celIEffect,greyscaleEffect,sepiaEffect, goochEffect];
-  //if (typeof(callback)!='undefined')
-  //{
-    callback();
-  //}
+  try{callback()}catch(err){};
 }
 
 function update(event)

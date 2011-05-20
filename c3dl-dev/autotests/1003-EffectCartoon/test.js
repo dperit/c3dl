@@ -9,9 +9,13 @@ var effects, scene;
 var light, light2, light3;
 
 c3dl.addModel('../models/teapot.dae');
-c3dl.addMainCallBack(effect_test, 'effect_test');
+c3dl.addMainCallBack(test, 'effect_test');
 
-var orbitCam = new c3dl.OrbitCamera();
+//
+function test(canvasName, callback)
+{
+
+  var orbitCam = new c3dl.OrbitCamera();
 orbitCam.setFarthestDistance(250);
 orbitCam.setClosestDistance(30);
 orbitCam.setDistance(100);
@@ -25,15 +29,15 @@ var goochEffect, goochEffect2;
 
 // outlines for gooch and cel effects
 var outlineOn = true;
-
-//
-function effect_test(canvasName)
-{
-  scene = new c3dl.Scene();		
+  
+  scene = new c3dl.Scene();
   scene.setCanvasTag(canvasName);
   var renderer = new c3dl.WebGL();
-
   scene.setRenderer(renderer);
+
+  
+
+  
   scene.init();
   scene.setAmbientLight([0,0,0]);  
 
@@ -89,6 +93,7 @@ function effect_test(canvasName)
   scene.setUpdateCallback(update);
 
   effects = [c3dl.effects.STANDARD,celIEffect,greyscaleEffect,sepiaEffect, goochEffect];
+  try{callback()}catch(err){};
 }
 
 function update(event)
