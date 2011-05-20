@@ -1,7 +1,7 @@
 {
     "testSuite": [{
         "dependancyURL": 
-            "../../c3dl/c3dapi.js",
+            "../../dist/c3dl-DEV-VERSION.js",
         
         "test": [{
             "name": "Effect Greyscale",
@@ -14,7 +14,7 @@
             "secondCanvas" : {
                 "src" : { "url" : "1001-EffectGreyscale/reference.png", "type" : "image" }
             }
-        }],
+        }]/*,
         "test": [{
             "name": "Effect Sepia",
             "note": "Effect Sepia",
@@ -194,6 +194,6 @@
             "secondCanvas" : {
                 "src" : { "url" : "1017-Velocity/reference.png", "type" : "image" }
             }
-        }]
+        }]*/
     }]
 }

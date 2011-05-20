@@ -14,6 +14,7 @@ c3dl.addMainCallBack(test, 'effect_test');
 //
 function test(canvasName, callback)
 {
+  c3dl.addModel('models/teapot.dae');
   var orbitCam = new c3dl.OrbitCamera();
 orbitCam.setFarthestDistance(250);
 orbitCam.setClosestDistance(30);
@@ -32,8 +33,10 @@ var outlineOn = true;
   scene = new c3dl.Scene();
   if (typeof(canvasName)=='string'){
     scene.setCanvasTag(canvasName);
+    console.log(canvasName);
   }else{
     scene.setCanvasTag(canvasName.getAttribute('id'));
+    console.log(canvasName.getAttribute('id'));
   }
   var renderer = new c3dl.WebGL();
   scene.setRenderer(renderer);
@@ -63,26 +66,26 @@ var outlineOn = true;
   // GREYSCALE
   greyscaleEffect = new c3dl.Effect();
   greyscaleEffect.init(c3dl.effects.GREYSCALE);
-  // SEPIA
-  var sepiaEffect = new c3dl.Effect();
-  sepiaEffect.init(c3dl.effects.SEPIA);
-  sepiaEffect.setParameter("color", [1.2, 1.0, 0.8]);
-  // CARTOON
-  celIEffect = new c3dl.Effect();
-  celIEffect.init(c3dl.effects.CARTOON);
-  celIEffect.setParameter("qMap", "models/images/shades.jpg");
-  // SOLID COLOR
-  solidColorEffect = new c3dl.Effect();
-  solidColorEffect.init(c3dl.effects.SOLID_COLOR);
-  solidColorEffect.setParameter("color", [0.0, 1.0, 0.0]);
-  // GOOCH
-  goochEffect = new c3dl.Effect();
-  goochEffect.init(c3dl.effects.GOOCH);
-  // GOOCH
-  goochEffect2 = new c3dl.Effect();
-  goochEffect2.init(c3dl.effects.GOOCH);
-  goochEffect2.setParameter("warmColor", [1,1,1]);
-  goochEffect2.setParameter("coolColor", [0,0,0]);
+  //// SEPIA
+  //var sepiaEffect = new c3dl.Effect();
+  //sepiaEffect.init(c3dl.effects.SEPIA);
+  //sepiaEffect.setParameter("color", [1.2, 1.0, 0.8]);
+  //// CARTOON
+  //celIEffect = new c3dl.Effect();
+  //celIEffect.init(c3dl.effects.CARTOON);
+  //celIEffect.setParameter("qMap", "models/images/shades.jpg");
+  //// SOLID COLOR
+  //solidColorEffect = new c3dl.Effect();
+  //solidColorEffect.init(c3dl.effects.SOLID_COLOR);
+  //solidColorEffect.setParameter("color", [0.0, 1.0, 0.0]);
+  //// GOOCH
+  //goochEffect = new c3dl.Effect();
+  //goochEffect.init(c3dl.effects.GOOCH);
+  //// GOOCH
+  //goochEffect2 = new c3dl.Effect();
+  //goochEffect2.init(c3dl.effects.GOOCH);
+  //goochEffect2.setParameter("warmColor", [1,1,1]);
+  //goochEffect2.setParameter("coolColor", [0,0,0]);
 
   teapots.push(new c3dl.Collada());
   teapots[0].init("models/teapot.dae");
