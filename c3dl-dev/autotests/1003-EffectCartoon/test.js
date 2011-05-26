@@ -1,5 +1,3 @@
-const SENSITIVITY = 1;
-const ZOOM_SENSITIVITY = 3;
 
 var isDragging = false;
 var rotationStartCoords = [0,0];
@@ -8,10 +6,11 @@ var effectCounter = 0;
 var effects, scene;
 var light, light2, light3;
 
-c3dl.addModel('../models/teapot.dae');
-c3dl.addMainCallBack(test, 'effect_test');
+c3dl.addModel('models/teapot.dae');
+c3dl.addMainCallBack(test, 'Effect Cartoon-first');
+var addCallBack = true;
 
-//
+
 function test(canvasName, callback)
 {
 
@@ -31,7 +30,11 @@ var goochEffect, goochEffect2;
 var outlineOn = true;
   
   scene = new c3dl.Scene();
-  scene.setCanvasTag(canvasName);
+  if (typeof(canvasName) == 'string'){
+    scene.setCanvasTag(canvasName);
+  }else{
+    scene.setCanvasTag(canvasName.getAttribute('id'));
+  }
   var renderer = new c3dl.WebGL();
   scene.setRenderer(renderer);
 
@@ -67,7 +70,7 @@ var outlineOn = true;
   // CARTOON
   celIEffect = new c3dl.Effect();
   celIEffect.init(c3dl.effects.CARTOON);
-  celIEffect.setParameter("qMap", "../models/images/shades.jpg");
+  celIEffect.setParameter("qMap", "models/images/shades.jpg");
   // SOLID COLOR
   solidColorEffect = new c3dl.Effect();
   solidColorEffect.init(c3dl.effects.SOLID_COLOR);
@@ -82,22 +85,20 @@ var outlineOn = true;
   goochEffect2.setParameter("coolColor", [0,0,0]);
 
   teapots.push(new c3dl.Collada());
-  teapots[0].init("../models/teapot.dae");
-  teapots[0].setTexture("../models/images/red.jpg");
+  teapots[0].init("models/teapot.dae");
+  teapots[0].setTexture("models/images/red.jpg");
   teapots[0].setEffect(celIEffect);
   scene.addObjectToScene(teapots[0]);
   orbitCam.setOrbitPoint(teapots[0].getPosition());
 
   scene.setCamera(orbitCam);
   scene.startScene();
-  scene.setUpdateCallback(update);
 
   effects = [c3dl.effects.STANDARD,celIEffect,greyscaleEffect,sepiaEffect, goochEffect];
-  try{callback()}catch(err){};
+  if (addCallBack)
+  {
+    callbackFunc = function(callback){setTimeout(callback, 1000)};
+    c3dl.addMainCallBack(callbackFunc, callback);
+    addCallBack = false;
+  }
 }
-
-function update(event)
-{	
-  document.getElementById('fps').innerHTML = "FPS: " + Math.floor(scene.getFPS());
-}
-

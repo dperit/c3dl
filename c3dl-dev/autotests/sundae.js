@@ -40,6 +40,10 @@ var sundae = {};
     var _passCount = 0;
     var _pool = {};
     var _queue = {};
+    var _testReceiverURL;
+    var _nextPage;
+    var _testType;
+    var _testNumber;
     _queue.setup = function (){
         var list = [];
         _queue.push = function(data){
@@ -97,7 +101,11 @@ var sundae = {};
         if(t)
             _tag = '' + t;
     };
-    sundae.init = function(){
+    sundae.init = function(params){
+        _testReceiverURL = params.testReceiverURL;
+        _nextPage = params.nextPage;
+        _testType = params.testType;
+        _testNumber = params.testNumber;
         //Tester setup
         var s = _w.document.getElementById("setup");
         _container = createDiv(_w.document.body, "sundae");
@@ -120,9 +128,9 @@ var sundae = {};
         var name = test.name || "default";
         var d = createDiv(_container, name);
         var r = createDiv(d, name + "-title");
-        var a = createCanvas(d, name + "-first", 100, 100);
-        var b = createCanvas(d, name + "-second", 100, 100);
-        var c = createCanvas(d, name + "-diff", 100, 100);
+        var a = createCanvas(d, name + "-first", 200, 200);
+        var b = createCanvas(d, name + "-second", 200, 200);
+        var c = createCanvas(d, name + "-diff", 200, 200);
         test.first = 3;
         test.second = 3;
         function runTest(id, func){
@@ -264,8 +272,16 @@ var sundae = {};
         }
         if(_count < total)
             _results.innerHTML = "Sundae Running... [" + _count + "/" + total + "]";
-        else
+        else{
             _results.innerHTML = "Sundae Done! [" + _count + "/" + total + "] - " + _passCount + " PASSES";
+            //Post the results to the recording script
+            $.get(
+                _testReceiverURL,
+                {testNumber: _testNumber, testType: _testType, score: _passCount}
+            );
+            //Navigate to the next page
+            window.location.href = _nextPage;
+        }
     }
     function postError(name, msg){
         console.log("Error: [" + name + "] - " + msg);

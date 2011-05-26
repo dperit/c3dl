@@ -84,7 +84,9 @@ c3dl.removeProgressBars = function ()
     // generate the id's of the progress bars
     var progressBarID = 'c3dl_progress_bar_' + i;
     var progressBar = document.getElementById(progressBarID);
-    document.body.removeChild(progressBar);
+    if (progressBar!=undefined){
+      document.body.removeChild(progressBar);
+    }
   }
 }
 

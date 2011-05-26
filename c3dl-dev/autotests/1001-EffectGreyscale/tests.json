@@ -14,7 +14,7 @@
             "secondCanvas" : {
                 "src" : { "url" : "1001-EffectGreyscale/reference.png", "type" : "image" }
             }
-        },
+        }/*,
         {
             "name": "Effect Sepia",
             "note": "Effect Sepia",
@@ -83,7 +83,7 @@
             "secondCanvas" : {
                 "src" : { "url" : "1007-ShapeCube/reference.png", "type" : "image" }
             }
-        }],
+        }*/]/*,
         "test": [{
             "name": "Shape Plane",
             "note": "Shape Plane",

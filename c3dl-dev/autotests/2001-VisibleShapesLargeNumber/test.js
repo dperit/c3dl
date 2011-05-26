@@ -21,7 +21,11 @@ var testDone = false;
 
 function test(canvasName){
   scn = new c3dl.Scene();
-  scn.setCanvasTag(canvasName);
+  if (typeof(canvasName)=='string'){
+    scn.setCanvasTag(canvasName);
+  }else{
+    scn.setCanvasTag(canvasName.getAttribute('id'));
+  }
   renderer = new c3dl.WebGL();
   renderer.createRenderer(this);
   scn.setRenderer(renderer);
@@ -62,7 +66,11 @@ function checktime(time){
 //
 //function test(canvasName, callback){
 //  scn = new c3dl.Scene();
-//  scn.setCanvasTag(canvasName);
+//  if (typeof(canvasName)=='string'){
+    scn.setCanvasTag(canvasName);
+  }else{
+    scn.setCanvasTag(canvasName.getAttribute('id'));
+  }
 //  renderer = new c3dl.WebGL();
 //  renderer.createRenderer(this);
 //  scn.setRenderer(renderer);
@@ -83,7 +91,11 @@ function checktime(time){
 //
 //function test(canvasName, callback){
 //  scn = new c3dl.Scene();
-//  scn.setCanvasTag(canvasName);
+//  if (typeof(canvasName)=='string'){
+    scn.setCanvasTag(canvasName);
+  }else{
+    scn.setCanvasTag(canvasName.getAttribute('id'));
+  }
 //  renderer = new c3dl.WebGL();
 //  renderer.createRenderer(this);
 //  scn.setRenderer(renderer);
@@ -105,7 +117,11 @@ function checktime(time){
 //
 //function test(canvasName, callback){
 //  scn = new c3dl.Scene();
-//  scn.setCanvasTag(canvasName);
+//  if (typeof(canvasName)=='string'){
+    scn.setCanvasTag(canvasName);
+  }else{
+    scn.setCanvasTag(canvasName.getAttribute('id'));
+  }
 //  renderer = new c3dl.WebGL();
 //  renderer.createRenderer(this);
 //  scn.setRenderer(renderer);
@@ -126,7 +142,11 @@ function checktime(time){
 //}
 //function test(canvasName, callback){
 //  scn = new c3dl.Scene();
-//  scn.setCanvasTag(canvasName);
+//  if (typeof(canvasName)=='string'){
+    scn.setCanvasTag(canvasName);
+  }else{
+    scn.setCanvasTag(canvasName.getAttribute('id'));
+  }
 //  renderer = new c3dl.WebGL();
 //  renderer.createRenderer(this);
 //  scn.setRenderer(renderer);
@@ -148,7 +168,11 @@ function checktime(time){
 //
 //function test(canvasName, callback){
 //  scn = new c3dl.Scene();
-//  scn.setCanvasTag(canvasName);
+//  if (typeof(canvasName)=='string'){
+    scn.setCanvasTag(canvasName);
+  }else{
+    scn.setCanvasTag(canvasName.getAttribute('id'));
+  }
 //  renderer = new c3dl.WebGL();
 //  renderer.createRenderer(this);
 //  scn.setRenderer(renderer);
@@ -172,7 +196,11 @@ function checktime(time){
 //var cam;
 //function test(canvasName, callback){
 //  scn = new c3dl.Scene();
-//  scn.setCanvasTag(canvasName);
+//  if (typeof(canvasName)=='string'){
+    scn.setCanvasTag(canvasName);
+  }else{
+    scn.setCanvasTag(canvasName.getAttribute('id'));
+  }
 //  renderer = new c3dl.WebGL();
 //  renderer.createRenderer(this);
 //  scn.setRenderer(renderer);
