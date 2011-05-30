@@ -1,35 +1,34 @@
-c3dl.addMainCallBack(test, "shape_test");
-c3dl.addModel("models/sphere.dae");
+c3dl.addMainCallBack(test, "Shape Custom-first");
+
 var callbackFunc;
 var addCallBack = true;
 
 function test(canvasName, callback){
-  scn = new c3dl.Scene();
-  if (typeof(canvasName)=='string'){
-    scn.setCanvasTag(canvasName);
+  scene = new c3dl.Scene();
+  if (typeof(canvasName) == 'string'){
+    scene.setCanvasTag(canvasName);
   }else{
-    scn.setCanvasTag(canvasName.getAttribute('id'));
+    scene.setCanvasTag(canvasName.getAttribute('id'));
   }
   renderer = new c3dl.WebGL();
   renderer.createRenderer(this);
-  scn.setRenderer(renderer);
-  scn.init(canvasName);
+  scene.setRenderer(renderer);
+  scene.init(canvasName);
   
-  if (renderer.isReady()) {
-    var vert = [-5,0,-5,-5,0,5,0,0,2.5, -5,0,5,5,0,5,0,0,2.5, 5,0,5,0,10,0,0,0,2.5];
-    var norm = [0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0];
-    var customShape = new c3dl.CustomShape(vert,norm);
-    var cam = new c3dl.FreeCamera();
-    cam.setPosition([-10.0, 20.0, 15.01]);
-    cam.setLookAtPoint([0.0, 0.0, 0.0]);
-    scn.addObjectToScene(customShape);
-    scn.setCamera(cam);
-    scn.startScene();
-    if (addCallBack)
+  var vert = [-5,0,-5,-5,0,5,0,0,2.5, -5,0,5,5,0,5,0,0,2.5, 5,0,5,0,10,0,0,0,2.5];
+  var norm = [0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0];
+  var customShape = new c3dl.CustomShape(vert,norm);
+  var cam = new c3dl.FreeCamera();
+  cam.setPosition([-10.0, 20.0, 15.01]);
+  cam.setLookAtPoint([0.0, 0.0, 0.0]);
+  scene.addObjectToScene(customShape);
+  scene.setCamera(cam);
+  scene.startScene();
+  if (addCallBack)
   {
-    callbackFunc = function(callback){setTimeout(callback, 2000)};
-    c3dl.addMainCallBack(callbackFunc, callback);
-    addCallBack = false;
-  }
+    setTimeout(callback, 3000);
+    //callbackFunc = function(callback){setTimeout(callback, 3000)};
+    //c3dl.addMainCallBack(callbackFunc, callback);
+    //addCallBack = false;
   }
 }

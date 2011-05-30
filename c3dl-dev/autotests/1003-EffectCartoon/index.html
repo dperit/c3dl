@@ -1,27 +1,22 @@
-<!--
-  Copyright (c) 2008 Seneca College
-  Licenced under the MIT License (http://www.c3dl.org/index.php/mit-license/)
--->
+﻿<!doctype html>
 <html>
   <head>
-    <title>C3DL Effect Tests</title>
-    <script language="javascript" src="../../../c3dl/c3dapi.js"></script>
-    <script language="javascript" src="test.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../style.css"/>
-    <style>
-      form
-      {
-        width: 300px;
-        border: 1px solid #000;
-      }
-    </style>
+    <title>Sundae</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../sundae.js" ></script>
+    
   </head>
-
   <body>
-
-            <canvas id="effect_test" width="500" height="500"></canvas>
-        
-              <span id='fps'>FPS: 0</span>
-         
+    <h1>Sundae Ref Test Runner</h1>
+    <h3>Settings</h3>
+    <div id="setup">
+    </div>
+    <script type="text/javascript">
+            sundae.init({
+                  testReceiverURL: "http://142.204.133.89/scripts/testreceiver.pl",
+                  nextPage: "../1004-EffectSolid/index.html",
+                  testType: 1,
+                  testNumber: 3});
+    </script>
   </body>
 </html>

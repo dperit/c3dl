@@ -3,39 +3,39 @@
         "dependancyURL": 
             "../../../dist/c3dl-DEV-VERSION.js",
         
-        "test": [{
+        "test": [/*{
             "name": "Effect Greyscale",
             "note": "Effect Greyscale",
             "tag": "Effect",
             "firstCanvas" : {
-                "src" : { "url" : "1001-EffectGreyscale/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1001-EffectGreyscale/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
-        },
+        },*/
         {
             "name": "Effect Sepia",
             "note": "Effect Sepia",
             "tag": "Effect",
             "firstCanvas" : {
-                "src" : { "url" : "1002-EffectSepia/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1002-EffectSepia/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
-        },{
+        }/*,{
             "name": "Effect Cartoon",
             "note": "Effect Cartoon",
             "tag": "Effect",
             "firstCanvas" : {
-                "src" : { "url" : "1003-EffectCartoon/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1003-EffectCartoon/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
         },
         {
@@ -43,154 +43,154 @@
             "note": "Effect Solid",
             "tag": "Effect",
             "firstCanvas" : {
-                "src" : { "url" : "1004-EffectSolid/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1004-EffectSolid/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
         },{
             "name": "Effect Gooch",
             "note": "Effect Gooch",
             "tag": "Effect",
             "firstCanvas" : {
-                "src" : { "url" : "1005-EffectGooch/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1005-EffectGooch/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
         },{
             "name": "Effect Gooch2",
             "note": "Effect Gooch2",
             "tag": "Effect",
             "firstCanvas" : {
-                "src" : { "url" : "1006-EffectGooch2/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1006-EffectGooch2/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
-        }]/*,
-        "test": [{
+        },
+        {
             "name": "Shape Cube",
             "note": "Shape Cube",
             "tag": "Shape",
             "firstCanvas" : {
-                "src" : { "url" : "1007-ShapeCube/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1007-ShapeCube/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
-        }],
-        "test": [{
+        },
+        {
             "name": "Shape Plane",
             "note": "Shape Plane",
             "tag": "Shape",
             "firstCanvas" : {
-                "src" : { "url" : "1008-ShapePlane/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1008-ShapePlane/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
-        }],
-        "test": [{
+        },
+        {
             "name": "Shape Sphere",
             "note": "Shape Sphere",
             "tag": "Shape",
             "firstCanvas" : {
-                "src" : { "url" : "1009-ShapeSphere/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1009-ShapeSphere/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
-        }],
-        "test": [{
+        },
+        {
             "name": "Shape SphereLow",
             "note": "Shape SphereLow",
             "tag": "Shape",
             "firstCanvas" : {
-                "src" : { "url" : "1010-ShapeSphereLow/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1010-ShapeSphereLow/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
-        }],
-        "test": [{
+        },
+        {
             "name": "Shape Custom",
             "note": "Shape Custom",
             "tag": "Shape",
             "firstCanvas" : {
-                "src" : { "url" : "1011-ShapeCustom/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1011-ShapeCustom/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
-        }],
-        "test": [{
+        },
+        {
             "name": "Shape CustomTexture",
             "note": "Shape CustomTexture",
             "tag": "Shape",
             "firstCanvas" : {
-                "src" : { "url" : "1012-ShapeCustomTexture/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1012-ShapeCustomTexture/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
-        }],
-        "test": [{
+        },
+        {
             "name": "Shape PlaneCustom",
             "note": "Shape PlaneCustom",
             "tag": "Shape",
             "firstCanvas" : {
-                "src" : { "url" : "1013-ShapePlaneCustom/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1013-ShapePlaneCustom/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
-        }],
-        "test": [{
+        },
+        {
             "name": "Size Boundingbox",
             "note": "Size Boundingbox",
             "tag": "Size",
             "firstCanvas" : {
-                "src" : { "url" : "1014-SizeBoundingBox/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1014-SizeBoundingBox/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
-        }]*//*,
-        "test": [{
+        },
+        {
             "name": "Velocity Angular",
             "note": "Velocity Angular",
             "tag": "Velocity",
             "firstCanvas" : {
-                "src" : { "url" : "1016-VelocityAngular/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1016-VelocityAngular/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
-        }],
-        "test": [{
+        },
+        {
             "name": "Velocity",
             "note": "Velocity",
             "tag": "Velocity",
             "firstCanvas" : {
-                "src" : { "url" : "1017-Velocity/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1017-Velocity/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
-        }]*/
+        }*/]
     }]
 }

@@ -5,29 +5,29 @@ var effectCounter = 0;
 var effects, scene;
 var light, light2, light3;
 
-c3dl.addModel('models/teapot.dae');
+c3dl.addModel('../models/teapot.dae');
 c3dl.addMainCallBack(test, 'Effect Gooch2-first');
 var addCallBack = true;
 
 function test(canvasName, callback)
 {
-if (callback != undefined){
+  if (callback != undefined){
     callbackFunc = callback;
   }
   var orbitCam = new c3dl.OrbitCamera();
-orbitCam.setFarthestDistance(250);
-orbitCam.setClosestDistance(30);
-orbitCam.setDistance(100);
-orbitCam.setPosition([0,0,38]);
-
-var teapots = [];
-
-var simpleIEffect, simpleIEffect2;
-var celIEffect;
-var goochEffect, goochEffect2;
-
-// outlines for gooch and cel effects
-var outlineOn = true;
+  orbitCam.setFarthestDistance(250);
+  orbitCam.setClosestDistance(30);
+  orbitCam.setDistance(100);
+  orbitCam.setPosition([0,0,38]);
+  
+  var teapots = [];
+  
+  var simpleIEffect, simpleIEffect2;
+  var celIEffect;
+  var goochEffect, goochEffect2;
+  
+  // outlines for gooch and cel effects
+  var outlineOn = true;
   
   scene = new c3dl.Scene();
   if (typeof(canvasName) == 'string'){
@@ -70,7 +70,7 @@ var outlineOn = true;
   // CARTOON
   celIEffect = new c3dl.Effect();
   celIEffect.init(c3dl.effects.CARTOON);
-  celIEffect.setParameter("qMap", "models/images/shades.jpg");
+  celIEffect.setParameter("qMap", "../models/images/shades.jpg");
   // SOLID COLOR
   solidColorEffect = new c3dl.Effect();
   solidColorEffect.init(c3dl.effects.SOLID_COLOR);
@@ -85,8 +85,8 @@ var outlineOn = true;
   goochEffect2.setParameter("coolColor", [0,0,0]);
 
   teapots.push(new c3dl.Collada());
-  teapots[0].init("models/teapot.dae");
-  teapots[0].setTexture("models/images/red.jpg");
+  teapots[0].init("../models/teapot.dae");
+  teapots[0].setTexture("../models/images/red.jpg");
   teapots[0].setEffect(goochEffect2);
   scene.addObjectToScene(teapots[0]);
   orbitCam.setOrbitPoint(teapots[0].getPosition());
@@ -97,7 +97,7 @@ var outlineOn = true;
   effects = [c3dl.effects.STANDARD,celIEffect,greyscaleEffect,sepiaEffect, goochEffect];
   if (addCallBack)
   {
-    callbackFunc = function(callback){setTimeout(callback, 1000)};
+    var callbackFunc = function(callback){setTimeout(callback, 3000)};
     c3dl.addMainCallBack(callbackFunc, callback);
     addCallBack = false;
   }

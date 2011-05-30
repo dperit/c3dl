@@ -241,8 +241,11 @@ var sundae = {};
         };
         var setupTestSuites = function(data){
             if(data.testSuite){
-                if(data.blurRadius)
+                if(data.blurRadius){
                     sundae.setBlurRadius(data.blurRadius);
+                }else{
+                    sundae.setBlurRadius(4);
+                }
                 if(data.tolerance)
                     sundae.setTolerance(data.tolerance);
                 for(var i = 0, len = data.testSuite.length; i < len; i++){
@@ -277,10 +280,11 @@ var sundae = {};
             //Post the results to the recording script
             $.get(
                 _testReceiverURL,
-                {testNumber: _testNumber, testType: _testType, score: _passCount}
-            );
+                {testNumber: _testNumber, testType: _testType, score: _passCount},
+                function(data){window.location.href = _nextPage}
+            ).error(function(data){window.location.href = _nextPage;});
             //Navigate to the next page
-            window.location.href = _nextPage;
+            //setTimeout(, 2000);
         }
     }
     function postError(name, msg){

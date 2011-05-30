@@ -1,18 +1,18 @@
 {
     "testSuite": [{
         "dependancyURL": 
-            "../../dist/c3dl-DEV-VERSION.js",
+            "../../../dist/c3dl-DEV-VERSION.js",
         
         "test": [{
             "name": "Effect Greyscale",
             "note": "Effect Greyscale",
             "tag": "Effect",
             "firstCanvas" : {
-                "src" : { "url" : "1001-EffectGreyscale/test.js", "type" : "script" },
+                "src" : { "url" : "test.js", "type" : "script" },
                 "run": "test"
             },
             "secondCanvas" : {
-                "src" : { "url" : "1001-EffectGreyscale/reference.png", "type" : "image" }
+                "src" : { "url" : "reference.png", "type" : "image" }
             }
         }/*,
         {

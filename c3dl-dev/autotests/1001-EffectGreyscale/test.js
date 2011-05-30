@@ -96,7 +96,7 @@ function test(canvasName, callback)
   
   if (addCallBack)
   {
-    callbackFunc = function(callback){setTimeout(callback, 1000)};
+    callbackFunc = function(callback){setTimeout(callback, 3000)};
     c3dl.addMainCallBack(callbackFunc, callback);
     addCallBack = false;
   }

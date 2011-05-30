@@ -1,0 +1,20 @@
+{
+    "testSuite": [{
+        "dependancyURL": 
+            "../../../dist/c3dl-DEV-VERSION.js",
+        
+        "test": [
+        {
+            "name": "Shape Custom Texture",
+            "note": "Shape Custom Texture",
+            "tag": "Shape",
+            "firstCanvas" : {
+                "src" : { "url" : "test.js", "type" : "script" },
+                "run": "test"
+            },
+            "secondCanvas" : {
+                "src" : { "url" : "reference.png", "type" : "image" }
+            }
+        }]
+    }]
+}
