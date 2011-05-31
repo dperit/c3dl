@@ -1,13 +1,23 @@
+﻿<!doctype html>
 <html>
   <head>
-    <title>Set Size Test</title>
-    <script type="application/javascript" src="../../../c3dl/c3dapi.js" ></script>
-    <script type="application/javascript" src="test.js"></script>
-    <link rel="stylesheet" type="text/css" href="../style.css" />
-  </head>
-
-  <body>    
+    <title>Sundae</title>
+    <script src="../settings.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../sundae.js" ></script>
     
-    <canvas id="size_test" style="border: 2px solid blue" width="500" height="500"></canvas>
+  </head>
+  <body>
+    <h1>Sundae Ref Test Runner</h1>
+    <h3>Settings</h3>
+    <div id="setup">
+    </div>
+    <script type="text/javascript">
+            sundae.init({
+                  testReceiverURL: _sundaeSettings.testReceiverURL,
+                  nextPage: "../../../scripts/viewtestresults.pl",
+                  testType: 1,
+                  testNumber: 14});
+    </script>
   </body>
 </html>

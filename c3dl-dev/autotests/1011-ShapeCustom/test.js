@@ -26,7 +26,7 @@ function test(canvasName, callback){
   scene.startScene();
   if (addCallBack)
   {
-    setTimeout(callback, 3000);
+    setTimeout(callback, _sundaeSettings.timeBeforeCallback);
     //callbackFunc = function(callback){setTimeout(callback, 3000)};
     //c3dl.addMainCallBack(callbackFunc, callback);
     //addCallBack = false;

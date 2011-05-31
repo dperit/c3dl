@@ -1,4 +1,4 @@
-c3dl.addMainCallBack(test, "shape_test");
+c3dl.addMainCallBack(test, "Shape Plane Custom-first");
 
 var callbackFunc;
 var addCallBack = true;
@@ -17,7 +17,7 @@ function test(canvasName, callback){
 
   var vert = [-5,-5, -5,5, 0,5, 0,0, 5,0, 5,-5]; //norm up
   var customPlane = new c3dl.CustomPlane(vert);
-  customPlane.setTexture("../models/images/testing.jpg");
+  customPlane.setTexture("../images/testing.jpg");
   var cam = new c3dl.FreeCamera();
   cam.setPosition([0.0, 15, 0.01]);
   cam.setLookAtPoint([0.0, 0.0, 0.0]);
@@ -26,7 +26,7 @@ function test(canvasName, callback){
   scene.startScene();
   if (addCallBack)
   {
-    setTimeout(callback, 3000);
+    setTimeout(callback, _sundaeSettings.timeBeforeCallback);
     //callbackFunc = function(callback){setTimeout(callback, 3000)};
     //c3dl.addMainCallBack(callbackFunc, callback);
     //addCallBack = false;

@@ -126,10 +126,8 @@ if ($useSampleValues || param)
                       ['ShapeCustomTexture',        1, 12],
                       ['ShapePlaneCustom',          1, 13],
                       ['SizeBoundingBox',           1, 14],
-                      ['TextureUpdate',             1, 15],
-                      ['VelocityAngular',           1, 16],
-                      ['Velocity',                  1, 17],
-                      ['VisibleShapesLargeNumber',  2, 1]
+                      ['VisibleShapesLargeNumber',  2, 1],
+                      ['InvisibleShapesLargeNumber',2, 2]
                       );
             my $testNameInsertionHandler = $dbh->prepare("INSERT INTO testNames(testName, testType, testNumber) VALUES(?,?,?)") or die $dbh->errstr;
             for(my $currentTest = 0; $currentTest < scalar(@testNames); $currentTest++){

@@ -16,7 +16,7 @@ function test(canvasName, callback){
   
 
   var sphere = new c3dl.Sphere(10,5,5);
-  sphere.setTexture("../models/images/testing.jpg"); 
+  sphere.setTexture("../images/testing.jpg"); 
   var cam = new c3dl.FreeCamera();
   cam.setPosition([8.0, 15, 20]);
   cam.setLookAtPoint([0.0, 0.0, 0.0]);
@@ -26,7 +26,7 @@ function test(canvasName, callback){
   
   if (addCallBack)
   {
-    setTimeout(callback, 3000);
+    setTimeout(callback, _sundaeSettings.timeBeforeCallback);
     //callbackFunc = function(callback){setTimeout(callback, 3000)};
     //c3dl.addMainCallBack(callbackFunc, callback);
     //addCallBack = false;

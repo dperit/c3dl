@@ -70,7 +70,7 @@ var outlineOn = true;
   // CARTOON
   celIEffect = new c3dl.Effect();
   celIEffect.init(c3dl.effects.CARTOON);
-  celIEffect.setParameter("qMap", "../models/images/shades.jpg");
+  celIEffect.setParameter("qMap", "../images/shades.jpg");
   // SOLID COLOR
   solidColorEffect = new c3dl.Effect();
   solidColorEffect.init(c3dl.effects.SOLID_COLOR);
@@ -86,7 +86,7 @@ var outlineOn = true;
 
   teapots.push(new c3dl.Collada());
   teapots[0].init("../models/teapot.dae");
-  teapots[0].setTexture("../models/images/red.jpg");
+  teapots[0].setTexture("../images/red.jpg");
   teapots[0].setEffect(celIEffect);
   scene.addObjectToScene(teapots[0]);
   orbitCam.setOrbitPoint(teapots[0].getPosition());
@@ -97,7 +97,7 @@ var outlineOn = true;
   effects = [c3dl.effects.STANDARD,celIEffect,greyscaleEffect,sepiaEffect, goochEffect];
   if (addCallBack)
   {
-    callbackFunc = function(callback){setTimeout(callback, 1000)};
+    callbackFunc = function(callback){setTimeout(callback, _sundaeSettings.timeBeforeCallback)};
     c3dl.addMainCallBack(callbackFunc, callback);
     addCallBack = false;
   }

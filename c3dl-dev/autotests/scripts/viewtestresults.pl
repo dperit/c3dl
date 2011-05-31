@@ -125,8 +125,7 @@ for (my $currentDay = 0, my $currentDate = $startDay->clone(); $currentDay < $nu
 {
     my $startTime = $currentDate->strftime($shortDateTimePattern);
     $currentDate->add(days=>1);
-    my $endTime = $currentDate->strftime($shortDateTimePattern);
-    print "<th colspan=$numUserAgents>$startTime to $endTime</th>";
+    print "<th colspan=$numUserAgents>$startTime</th>";
 }
 print "</tr><tr>\n<th>Test Type</th>\n<th>Test Name</th>\n";
 
@@ -155,7 +154,7 @@ for (my $currentDay = 0; $currentDay < $numDays; $currentDay++){
                         INNER JOIN testNames tn ON tn.testType = tr.testType AND tn.testNumber = tr.testNumber
                         INNER JOIN testTypes tt ON tt.testTypeNumber = tr.testType
                         WHERE date > ? AND date < ?
-                        ORDER BY tr.testType, tr.testNumber, tr.userAgent DESC");
+                        ORDER BY tr.testType, tr.testNumber, tr.userAgent DESC, tr.score DESC");
     $sth->execute($currentDate->strftime($shortDateTimePattern),
                   $nextDayDate->strftime($shortDateTimePattern)) or die $sth->errstr;
     
@@ -207,80 +206,62 @@ for(my $currentTestType = 0; $currentTestType < $maxType; $currentTestType++){
                 #my $resultsTestNumber = $dayDataSets[$currentDay][$currentResultNumbers[$currentDay]][1];
                 #my $resultsTestType = $dayDataSets[$currentDay][$currentResultNumbers[$currentDay]][0];
                 print "<td>\n";
-                #Print out all of the scores for the given user agent, test number, and test type
-                my $curTestsPassed = 0;
-                my $curTestsTotal = 0;
-                while ($currentResultNumbers[$currentDay] < $maxResultNumbers[$currentDay] &&
-                       $dayDataSets[$currentDay][$currentResultNumbers[$currentDay]][2] eq $userAgentsList[0][$currentUserAgentNumber][0] &&
-                       $dayDataSets[$currentDay][$currentResultNumbers[$currentDay]][1] == ($currentTestNumber + 1) &&
-                       $dayDataSets[$currentDay][$currentResultNumbers[$currentDay]][0] == ($currentTestType + 1)){
-                    my $resultsScoreNumber = $dayDataSets[$currentDay][$currentResultNumbers[$currentDay]][3];
-                    if ($resultsScoreNumber == 1)
-                    {
-                        $curTestsPassed++;
+                if ($currentTestType == 0){
+                    #Make a graphical bar showing the number of tests passed on the current day
+                    my $curTestsPassed = 0;
+                    my $curTestsTotal = 0;
+                    while ($currentResultNumbers[$currentDay] < $maxResultNumbers[$currentDay] &&
+                           $dayDataSets[$currentDay][$currentResultNumbers[$currentDay]][2] eq $userAgentsList[0][$currentUserAgentNumber][0] &&
+                           $dayDataSets[$currentDay][$currentResultNumbers[$currentDay]][1] == ($currentTestNumber + 1) &&
+                           $dayDataSets[$currentDay][$currentResultNumbers[$currentDay]][0] == ($currentTestType + 1)){
+                        my $resultsScoreNumber = $dayDataSets[$currentDay][$currentResultNumbers[$currentDay]][3];
+                        if ($resultsScoreNumber == 1)
+                        {
+                            $curTestsPassed++;
+                        }
+                        $curTestsTotal++;
+                        
+    
+                        $currentResultNumbers[$currentDay]++;
                     }
-                    $curTestsTotal++;
-                    
-
-                    $currentResultNumbers[$currentDay]++;
-                }
-                if ($curTestsTotal != 0){
-                    my $scoreBackgroundDiv;
-                    my $scoreForegroundDiv;
-                    my $width;
-                    if ($curTestsPassed == 0){
-                        $width = 0;
-                    }else{
-                        $width = ($curTestsPassed / $curTestsTotal) * 100;
+                    if ($curTestsTotal != 0){
+                        my $scoreBackgroundDiv;
+                        my $scoreForegroundDiv;
+                        my $width;
+                        if ($curTestsPassed == 0){
+                            $width = 0;
+                        }else{
+                            $width = ($curTestsPassed / $curTestsTotal) * 100;
+                        }
+    
+                        print "$curTestsPassed of $curTestsTotal<div style='background-color: grey; border: 2px solid black; width: 100%;'>";
+                        print "<div style='background-color: #a0e61a; width: $width%;'>&nbsp;</div></div>";
+    
                     }
-                    #style='background-color: grey; border: 2px solid black; width: 100%;'
-                    #style="background-color: rgb(119, 171, 19); width: 100%; height: 25px;"
-                    print "$curTestsPassed of $curTestsTotal<div style='background-color: grey; border: 2px solid black; width: 100%;'>";
-                    print "<div style='background-color: #a0e61a; width: $width%;'>&nbsp;</div></div>";
-                    #if(!document.getElementById(names)){
-                    #        newdiv = document.createElement('div');
-                    #        newdivz = document.createElement('div');
-                    #        newdivz.id = "divz" + options.milestone;
-                    #        newdiv.id = "div" + options.milestone;
-                    #}
-                    #else{
-                    #        newdiv.id = names;
-                    #        newdivz.id = namez;
-                    #}
-                    #
-                    #if(open[options.milestone] == 0 || closed[options.milestone] == 0){
-                    #        open[options.milestone] == 0 ? width = "100%" : width = "0%";
-                    #}
-                    #else{
-                    #        width = (open[options.milestone]/(closed[options.milestone]+open[options.milestone]));
-                    #        width = 100 - (width*100) + "%";
-                    #}
-                    #
-                    #wordz = document.createElement("p");
-                    #wordz.innerHTML = "<p>"+ title[options.milestone] + "</p><p>"+Math.round(closed[options.milestone]/(open[options.milestone]+closed[options.milestone])*100) + "% complete</p>";
-                    #
-                    #words = document.createElement("p");
-                    #words2 = document.createElement("p");
-                    #words.innerHTML = "<span class='t-negative'>" + open[options.milestone] + "</span> open tickets";
-                    #words2.innerHTML = "<span class='t-positive'>" + closed[options.milestone] +  "</span> closed tickets";
-                    #document.getElementById(id).appendChild(wordz);
-                    #document.getElementById(id).appendChild(words);
-                    #document.getElementById(id).appendChild(words2);
-                    
-                    #newdivz.width = "200px";
-                    #newdivz.height = "50px";
-                    #newdivz.align="centre";
-                    #newdivz.style.backgroundColor = "grey";
-                    #newdivz.style.border = "2px solid black";
-                    #newdivz.style.width = "200px";
-                    #newdivz.style.height = "25px";
-                    #
-                    #newdiv.style.backgroundColor = "#77AB13";
-                    #newdiv.style.width = width;
-                    #newdiv.style.height = newdivz.style.height;
-                    #newdiv.innerHTML = "&nbsp;";
-                    #document.getElementById(id).appendChild(newdivz);
-                    #newdivz.appendChild(newdiv);
+                }else{
+                    my $maxScore = 0;
+                    my $minScore = 999999;
+                    my $curTestsTotal = 0;
+                    while ($currentResultNumbers[$currentDay] < $maxResultNumbers[$currentDay] &&
+                           $dayDataSets[$currentDay][$currentResultNumbers[$currentDay]][2] eq $userAgentsList[0][$currentUserAgentNumber][0] &&
+                           $dayDataSets[$currentDay][$currentResultNumbers[$currentDay]][1] == ($currentTestNumber + 1) &&
+                           $dayDataSets[$currentDay][$currentResultNumbers[$currentDay]][0] == ($currentTestType + 1)){
+                        my $resultsScoreNumber = $dayDataSets[$currentDay][$currentResultNumbers[$currentDay]][3];
+                        if ($resultsScoreNumber > $maxScore){
+                            $maxScore = $resultsScoreNumber;
+                        }
+                        if ($resultsScoreNumber < $minScore){
+                            $minScore = $resultsScoreNumber;
+                        }
+                        $curTestsTotal++;
+                        $currentResultNumbers[$currentDay]++;
+                    }
+                    if ($curTestsTotal != 0){
+                        printf("%.3f", $minScore);
+                        print " to ";
+                        printf("%.3f", $maxScore);
+                        print " average FPS";
+                    }
                 }
                 print "</td>\n";
             }

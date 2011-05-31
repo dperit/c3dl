@@ -1,8 +1,8 @@
-c3dl.addMainCallBack(test, "visibleShapesLargeNumber_test");
+c3dl.addMainCallBack(test, "invisibleShapesLargeNumber_test");
 
-var _nextPage = '../2002-InvisibleShapesLargeNumber/index.html';
+var _nextPage = '../2003-VisibleShapesSmallNumber/index.html';
 var _testType = 2;
-var _testNumber = 1;
+var _testNumber = 2;
 
 var xLimit = 10;
 var yLimit = 10;
@@ -51,8 +51,8 @@ function test(canvasName){
     }
     
     var cam = new c3dl.FreeCamera();
-    cam.setPosition([0, 0, 30.0]);
-    cam.setLookAtPoint([0, 0, 0]);
+    cam.setPosition([0, 0, 30]);
+    cam.setLookAtPoint([0, 0, 40]);
     scene.setCamera(cam);
     scene.setUpdateCallback(checktime);
     scene.startScene();
